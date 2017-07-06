@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <!-- Twitter bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- apiCheck is used by formly to validate its api -->
+    <script src="js/api-check.js"></script>
+    <!-- This is the latest version of angular (at the time this template was created) -->
+    <script src="js/angular.js"></script>
+
+    <!-- This is the current state of master for formly core. -->
+    <script src="js/formly.js"></script>
+    <!-- This is the current state of master for the bootstrap templates -->
+    <script src="js/angular-formly-templates-bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="js/script.js"></script>
+    <title>Angular Formly Example1</title>
+
+  </head>
+
+  <body ng-app="formlyExample" ng-controller="MainCtrl as vm">
+    <div class="jumbotron">
+      <div class="row">
+        <div class="col-sm-6">
+          <form class="form-group">
+            <label>QuestionId:</label><input type="text" ng-model="vm.key" class="form-control"><br>
+            <label>select input type</label><select ng-options="x for x in vm.types" class="form-control" ng-model="vm.type"></select><br>
+            <label>Enter options if, type is radio,checkbox, or select</label><textarea class="form-control" cols="60" rows="3" ng-model="vm.option"></textarea><br>
+            <label>enter the question</label><input class="form-control" type="text" ng-model="vm.label"><br>
+            <label>enter the placeholder</label><input class="form-control" type="text" ng-model="vm.placeholder"><br>
+            <button type="button" ng-click="vm.onSubmit()" class="btn btn-primary">Save</button>
+          </form>
+        </div>
+        <div class="col-sm-6">
+          <strong>after submitting question details form element created</strong><br>
+          <label style="text-align:center" ng-hide="vm.questions.length>0">no questions created yet.</label>
+          <form ng-submit="vm.onSubmit()" name="vm.form" novalidate>
+            <formly-form model="vm.model" fields="vm.fields" options="vm.options" form="vm.form">
+            </formly-form>
+          </form>
+        </div>
+      </div>
+      <div>
+        <h2>questions model</h2>
+        <pre>{{vm.questions | json}}</pre>
+      </div>
+    
+      <script type="text/ng-template" id="custom.html">
+        <div class="form-group">
+          <label for="{{::id}}">{{options.templateOptions.label}}</label>
+          <input id="{{::id}}" name="{{::id}}" class="form-control" ng-model="model[options.key]" />
+        </div>
+      </script>
+      <script type="text/ng-template" id="example-directive.html">
+        <div class="form-group">
+          <label for="{{::id}}">{{options.templateOptions.label}}</label>
+          <input id="{{::id}}" name="{{::id}}" class="form-control" ng-model="model[options.key]" />
+        </div>
+      </script>
+    </div>
+  </body>
+
+</html>
